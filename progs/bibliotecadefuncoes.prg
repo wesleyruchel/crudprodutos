@@ -1,4 +1,4 @@
-FUNCTION DataParaFormatoAmericado(tcData)
+FUNCTION DataParaFormatoAmericano(tcData)
 	LOCAL lcDataFormatada
 	lcDataFormatada = DTOC(tcData, 1)
 	lcDataFormatada = SUBSTR(lcDataFormatada, 5, 2) + "-" + SUBSTR(lcDataFormatada, 7, 2) + "-" + SUBSTR(lcDataFormatada, 1, 4)
@@ -27,7 +27,7 @@ FUNCTION RecuperarCotacaoDolarDia()
 	
 	TRY 
 		lcUrl = "https://olinda.bcb.gov.br/olinda/servico/PTAX/versao/v1/odata/CotacaoDolarDia(dataCotacao=@dataCotacao)"
-		lcQueryParameters = "%40dataCotacao='" + DataParaFormatoAmericado(DATE()) + "'&$format=json"
+		lcQueryParameters = "%40dataCotacao='" + DataParaFormatoAmericano(DATE()) + "'&$format=json"
 		lcUrl = lcUrl + "?" + lcQueryParameters
 		
 		loHTTP = CREATEOBJECT("Microsoft.XMLHTTP")
