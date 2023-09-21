@@ -1,5 +1,6 @@
-DEFINE CLASS EstoqueProduto
-	HIDDEN cSql
+DEFINE CLASS EstoqueProduto AS Session
+	
+	cSql = ""
 	
 	PROCEDURE Init()
  		This.cSql = "" 	

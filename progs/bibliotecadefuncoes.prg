@@ -30,8 +30,6 @@ FUNCTION RecuperarCotacaoDolarDia()
 		lcQueryParameters = "%40dataCotacao='" + DataParaFormatoAmericado(DATE()) + "'&$format=json"
 		lcUrl = lcUrl + "?" + lcQueryParameters
 		
-		MESSAGEBOX(lcUrl)
-		
 		loHTTP = CREATEOBJECT("Microsoft.XMLHTTP")
 		loHTTP.Open("GET", lcUrl, .F.)
 		loHTTP.SetRequestHeader("Content-Type", "application/json; charset=utf-8")
