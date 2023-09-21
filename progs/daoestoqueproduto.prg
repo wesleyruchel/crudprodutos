@@ -15,8 +15,7 @@ DEFINE CLASS EstoqueProduto AS Session
 			           ,[subGrupo]
 			           ,[custo]
 			           ,[margem]
-			           ,[venda]
-			           ,[vendaDolar])
+			           ,[venda])
 			     VALUES
 			           (<<"'" + oProduto.Codigo + "'">>
 			           ,<<"'" + oProduto.Nome + "'">>
@@ -24,8 +23,7 @@ DEFINE CLASS EstoqueProduto AS Session
 			           ,<<oProduto.SubGrupo>>
 			           ,<<oProduto.Custo>>
 			           ,<<oProduto.Margem>>
-			           ,<<oProduto.Venda>>
-			           ,<<oProduto.VendaDolar>>)
+			           ,<<oProduto.Venda>>)
  		ENDTEXT
  		SQLEXEC(oCon.ConnectHandle, lcSql)
 	ENDPROC
@@ -40,7 +38,6 @@ DEFINE CLASS EstoqueProduto AS Session
 			      ,[custo] = <<oProduto.Custo>>
 			      ,[margem] = <<oProduto.Margem>>
 			      ,[venda] = <<oProduto.venda>>
-			      ,[vendaDolar] = <<oProduto.VendaDolar>>
 			 WHERE id = <<oProduto.Id>>
  		ENDTEXT
  		SQLEXEC(oCon.ConnectHandle, lcSql)
