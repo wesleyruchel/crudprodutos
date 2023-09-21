@@ -26,8 +26,7 @@ BEGIN
 		subGrupo		INT NULL,
 		custo 			NUMERIC(18,2) NOT NULL,
 		margem 			NUMERIC(18,2) NOT NULL,
-		venda 			NUMERIC(18,2) NOT NULL,
-		vendaDolar		NUMERIC(18,2) NOT NULL,				
+		venda 			NUMERIC(18,2) NOT NULL,			
 		CONSTRAINT PK_Produto_Id PRIMARY KEY (id),
 		CONSTRAINT FK_IdGrupoProduto FOREIGN KEY (grupo) REFERENCES GrupoProduto(id),
 		CONSTRAINT FK_IdSubGrupoProduto FOREIGN KEY (subGrupo) REFERENCES SubGrupoProduto(id)
