@@ -18,8 +18,8 @@ DEFINE CLASS EstoqueProduto AS Custom
 				P.custo,
 				P.margem,
 				P.venda,
-				G.nome AS grupoNome,
-				S.nome AS subGrupoNome
+				'(' + CONVERT(VARCHAR, G.id) + ') ' + G.nome AS grupoDescricao,
+				'(' + CONVERT(VARCHAR, S.id) + ') ' + S.nome AS subGrupoDescricao
 			FROM Produtos P (NOLOCK)
 			LEFT JOIN GruposProduto G (NOLOCK)
 				ON P.grupo = G.id
