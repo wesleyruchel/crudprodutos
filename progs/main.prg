@@ -14,6 +14,9 @@ SET PROCEDURE TO 	BIBLIOTECADEFUNCOES,;
 SET ASSERTS ON
 ASSERT .F.
 
+ON ERROR ErrorHendle(ERROR(), MESSAGE(), PROGRAM(), LINENO())
+ON SHUTDOWN DoShutDown()
+
 PUBLIC oCon
 oCon = CREATEOBJECT("Empty")
 ADDPROPERTY(oCon, "ConnectHandle")
@@ -46,4 +49,18 @@ FUNCTION InicializarConexaoDb()
 	ENDIF
 	
 	oCon.ConnectHandle = lnHandle 
+ENDFUNC
+
+FUNCTION ErrorHendle(tnError, tcMessage, tcProg, tnLineNo)
+	LOCAL lcError
+	TEXT TO lcError TEXTMERGE NOSHOW
+		Error No: << tnError >>. Message: << tcMessage >>
+		Source: << tcProg >> at line << tnLineNo >>
+	ENDTEXT
+	MESSAGEBOX(lcError, 0+4096, "Error", 5000)
+ENDFUNC
+
+FUNCTION DoShutDown()
+	CLEAR EVENTS
+	QUIT
 ENDFUNC
