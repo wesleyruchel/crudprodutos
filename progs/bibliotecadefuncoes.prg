@@ -10,6 +10,7 @@ FUNCTION CriarObjetoRetorno(toObjeto)
 	toObjeto = CREATEOBJECT("Empty")
 	ADDPROPERTY(toObjeto, "Status", .F.)
 	ADDPROPERTY(toObjeto, "Mensagem", .F.)	
+	ADDPROPERTY(toObjeto, "Dados", .F.)	
 	
 	RETURN toObjeto
 ENDFUNC
@@ -21,7 +22,7 @@ FUNCTION ConverterJsonParaObjeto(tcJson)
 ENDFUNC
 
 FUNCTION RecuperarCotacaoDolarDia()
-	LOCAL loHTTP, lcUrl, lcQueryParameters
+	LOCAL loHTTP, lcUrl, lcQueryParameters, loResponse
 	LOCAL loEx AS Exception, loRetorno
 	CriarObjetoRetorno(@loRetorno)
 	
@@ -36,10 +37,15 @@ FUNCTION RecuperarCotacaoDolarDia()
 		loHTTP.SetRequestHeader("Accept", "application/json")
 		loHTTP.Send()
 		
-		IF loHTTP.Status = 200
+		IF loHTTP.Status = 200	
 		    loRetorno.Status = .T.
 		    loRetorno.Mensagem = "Sucesso!"
-		    loRetorno.Dados = ConverterJsonParaObjeto(loHTTP.ResponseText)
+		    loResponse = ConverterJsonParaObjeto(STRTRAN(loHTTP.ResponseText,"@odata.contex", "oDataContex")) && Ajusta para conseguir converter
+			
+			* Para recupear os valores da Colletion retornada pela classe que converte o Json.
+			FOR EACH v IN loResponse.Value
+				loRetorno.Dados = v
+			ENDFOR
 		ELSE
 		    loRetorno.Status = .F.
 		    loRetorno.Mensagem = "Algo deu errado! (" + loHTTP.ResponseText + " (" + TRANSFORM(loHTTP.Status) + ") )."
